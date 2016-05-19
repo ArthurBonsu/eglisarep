@@ -1,0 +1,33 @@
+package com.gmail.peeman34.eglisaofficial;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.TextView;
+
+import java.sql.SQLException;
+
+/**
+ * Created by pee on 2/3/2016.
+ */
+public class VISITATION_MEMBERS extends Activity {
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.visitationmembers);
+        TextView tv = (TextView) findViewById(R.id.visitationmembers);
+        ENTERIES ent55 = new ENTERIES(this);
+        ent55.open();
+        String  visitorname= null;
+        String visitationalmembers = null;
+        try {
+            visitationalmembers = ent55.producevisitors(visitorname);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ent55.close();
+              tv.setText(visitationalmembers);
+    }
+    }
