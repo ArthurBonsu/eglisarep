@@ -1,0 +1,26 @@
+package com.gmail.peeman34.eglisaofficial;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.TextView;
+
+/**
+ * Created by pee on 2/4/2016.
+ */
+public class MUSICINFOPLAN extends Activity {
+    public MUSICINFOPLAN() {
+        super();
+    }
+
+     TextView infopane = (TextView)findViewById(R.id.usherspane);
+           String infotext = infopane.getText().toString();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+           setContentView(R.layout.musicinfopane);
+          infopane.setText(infotext);
+
+
+    }
+}
