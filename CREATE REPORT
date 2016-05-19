@@ -1,0 +1,64 @@
+package com.gmail.peeman34.eglisaofficial;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+/**
+ * Created by pee on 2/1/2016.
+ */
+public class CREATE_REPORT extends Activity implements View.OnClickListener{
+    public CREATE_REPORT() {
+        super();
+    }
+ EditText Teamname =  (EditText)findViewById(R.id.Teamname);
+    EditText Reportname = (EditText)findViewById(R.id.Reportname);
+
+    TextView reportnamecome = (TextView)findViewById(R.id.reportnamecome);
+    TextView reportcome =(TextView)findViewById(R.id.reportcome);
+
+    String teamname = Teamname.getText().toString();
+    String reportname = Reportname.getText().toString();
+
+    Button Reportpost = (Button)findViewById(R.id.reportpost);
+    Button Reportcancel = (Button)findViewById(R.id.reportcancel);
+
+     int count;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+          setContentView(R.layout.create_report);
+
+
+           Reportpost.setOnClickListener((View.OnClickListener) this);
+             Reportcancel.setOnClickListener((View.OnClickListener) this);
+
+
+
+
+
+     }
+
+    @Override
+    public void onClick(View v) {
+        switch (getTaskId()){
+
+            case R.id.reportpost:
+                 for (count =0; count < 7; count++){
+                     reportnamecome.setText(teamname);
+                     reportcome.setText(reportname);
+
+                        }
+                break;
+
+
+            case R.id.reportcancel:
+
+                break;
+        }
+    }
+}
