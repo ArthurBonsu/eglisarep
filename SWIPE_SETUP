@@ -1,0 +1,25 @@
+package com.gmail.peeman34.eglisaofficial;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+
+/**
+ * Created by pee on 1/20/2016.
+ */
+public class Swipesetup extends Activity {
+    public Swipesetup() {
+        super();
+    }
+        @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+
+        setContentView(R.layout.albumlook);
+        ViewPager Viewpager = (ViewPager) findViewById(R.id.viewpager);
+        Swipe adapter = new Swipe(this);
+        Viewpager.setAdapter(adapter);
+    }
+}
