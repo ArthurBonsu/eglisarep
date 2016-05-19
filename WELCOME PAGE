@@ -1,0 +1,49 @@
+package com.gmail.peeman34.eglisaofficial;
+
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.TextView;
+
+/**
+ * Created by pee on 1/12/2016.
+ */
+public class WELCOMEPAGE extends Activity implements View.OnClickListener {
+   private SharedPreferences SharedPrefs;
+    private  String username, password ,displaymessage;
+    private  static String USERNAME_KEY = "username";
+    private  static  String PASSWORD_KEY ="password";
+    private  final static String SAVED_KEY ="saved";
+      private  boolean isSaved= false;
+  TextView welcomoo = (TextView)findViewById(R.id.welcomoo);
+    public WELCOMEPAGE() {
+        super();
+           setContentView(R.layout.welcome_page);
+      init();
+        isSaved = SharedPrefs.getBoolean(SAVED_KEY, false);
+        String username=  SharedPrefs.getString(USERNAME_KEY, "");
+
+    }
+     private void init(){
+        SharedPreferences SharedPrefs =  getSharedPreferences("SharedPrefs", MODE_PRIVATE);
+               displaymessage = "Welcome back " +  username ;
+
+        if(isSaved) {
+            welcomoo.setText(displaymessage);
+        }
+    }
+
+    /**
+     * Called when a view has been clicked.
+     *
+     * @param v The view that was clicked.
+     */
+    @Override
+    public void onClick(View v) {
+
+    }
+}
+
+
+
