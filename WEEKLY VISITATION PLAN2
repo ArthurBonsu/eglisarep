@@ -1,0 +1,25 @@
+package com.gmail.peeman34.eglisaofficial;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.TextView;
+
+/**
+ * Created by pee on 2/4/2016.
+ */
+public class WEEKLY_VISITATION_PLAN extends Activity {
+    public WEEKLY_VISITATION_PLAN() {
+        super();
+    }
+
+    TextView visitpane = (TextView)findViewById(R.id.usherspane);
+           String visitpanetext = null;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+           setContentView(R.layout.weeklyvisitation);
+             visitpanetext = visitpane.getText().toString();
+           visitpane.setText(visitpanetext);
+    }
+}
