@@ -1,0 +1,51 @@
+package com.gmail.peeman34.eglisaofficial;
+
+import android.app.Activity;
+import android.media.MediaPlayer;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.view.View;
+import android.widget.Button;
+
+/**
+ * Created by pee on 1/5/2016.
+ */
+public class LATEST_MESSAGE extends Activity implements  View.OnClickListener {
+    public LATEST_MESSAGE() {
+        super();
+    }
+
+    Button PLAY = (Button) findViewById(R.id.PLAYEE);
+
+    MediaPlayer OurSong;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.generalle);
+
+     Button PLAY = (Button)findViewById(R.id.PLAYEE);
+        PLAY.setOnClickListener((View.OnClickListener) this);
+
+        OurSong = MediaPlayer.create(LATEST_MESSAGE.this, R.raw.firstsong);
+
+
+    }
+
+    @Override
+    public void onClick(View v) {
+           switch (getTaskId()) {
+               case R.id.PLAYEE:
+                   if (!OurSong.isPlaying()) {
+
+                       OurSong.start();
+                       PLAY.setText("PAUSE");
+                   }
+                   if (OurSong.isPlaying()) {
+                       OurSong.pause();
+                       PLAY.setText("PLAY");
+                   }
+                   break;
+           }
+    }
+}
