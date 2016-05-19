@@ -1,0 +1,26 @@
+package com.gmail.peeman34.eglisaofficial;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
+
+/**
+ * Created by pee on 1/14/2016.
+ */
+public class SetBrightness extends Activity  {
+    public SetBrightness() {
+        super();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // we have to correct the layout
+
+                 setContentView(R.layout.settingsactionpage);
+         requestWindowFeature(Window.FEATURE_NO_TITLE);
+         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
+}
