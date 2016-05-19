@@ -1,0 +1,206 @@
+package com.gmail.peeman34.eglisaofficial;
+
+import android.app.Activity;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteCursorDriver;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQuery;
+
+import java.sql.SQLException;
+
+public class  ENTERIES extends Activity {
+
+    public ENTERIES(Context ourContext) {
+        OurContext = ourContext;
+    }
+
+
+    public static final String KEYROWID ="id" ;
+    public static final String  KEY_NAME ="NAMES";
+    public  static final String EMAIL = "EMAIL";
+    public static final String TEL= "TEL";
+    public static final String  DEPARTMANET= "DEPARTMENT";
+    public  static final String PASSWORDO= "PASSWORDO";
+    public static final String DATABASENAME = "membership_db";
+    public static final String TABLENAME = "membershiptable";
+    public static final int DATABASEVERSION = 1;
+
+    private DbHelper OurHelper;
+    private final Context OurContext;
+    private SQLiteDatabase OurDatabase ;
+
+
+    private static class DbHelper extends SQLiteOpenHelper {
+
+        public DbHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+            super(context, name, factory, version);
+        }
+
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            db.execSQL("CREATE TABLE " + TABLENAME + "(" + KEYROWID + "INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME + "TEXT NOT NULL" + EMAIL + "TEXT NOT NULL" + TEL + "TEXT NOT NULL" + DEPARTMANET + " TEXT NOT NULL " + PASSWORDO + "TEXT NOT NULL );");
+        }
+
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+        }
+
+    }
+    SQLiteDatabase.CursorFactory pee = new SQLiteDatabase.CursorFactory() {
+        @Override
+        public Cursor newCursor(SQLiteDatabase db, SQLiteCursorDriver masterQuery, String editTable, SQLiteQuery query) {
+            return null;
+        }
+    };
+    public ENTERIES open(){
+        OurHelper = new DbHelper(OurContext, DATABASENAME , pee, DATABASEVERSION );
+        OurDatabase = OurHelper.getWritableDatabase();
+        return this;
+
+    }
+    public String close(){
+        OurHelper.close();
+        return null;
+    }
+    public  long createEntery (String name, String email, String tel, String dept, String pass){
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_NAME, name );
+        cv.put(EMAIL, email);
+        cv.put(TEL, tel);
+        cv.put(DEPARTMANET, dept);
+        cv.put(PASSWORDO, pass);
+        return  OurDatabase.insert(TABLENAME, null, cv);
+
+    }
+    public  String getData( ) throws SQLException {
+        String[] collumns = new String[]{KEYROWID, KEY_NAME, EMAIL, TEL, DEPARTMANET};
+        Cursor c = OurDatabase.query(TABLENAME, collumns, null, null, null, null, null);
+        String result = " ";
+
+        int rowe = c.getColumnIndex(KEYROWID);
+        int namee = c.getColumnIndex(KEY_NAME);
+        int emailee = c.getColumnIndex(EMAIL);
+        int tele = c.getColumnIndex(TEL);
+        int departmentee = c.getColumnIndex(DEPARTMANET);
+
+        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+            result = c.getString(rowe) + "  " + c.getString(namee) + "  " + c.getString(emailee) + c.getString(tele) + c.getString(departmentee) + "\n";
+        }
+        return result;
+    }
+    public String getName(long l) throws SQLException{
+        String[] collumns = new String[]{KEYROWID, KEY_NAME, EMAIL, TEL, DEPARTMANET};
+        Cursor c = OurDatabase.query(TABLENAME, collumns, KEY_NAME + "= " + l , null, null, null, null);
+        if (c  != null){
+            c.moveToFirst();
+            String name = c.getString(1);
+            return  name;
+        }
+        return  null;
+    }
+    public String getemailer(long l) throws SQLException{
+        String[] collumns = new String[]{KEYROWID, KEY_NAME, EMAIL, TEL, DEPARTMANET, PASSWORDO};
+        Cursor c = OurDatabase.query(TABLENAME, collumns, KEY_NAME + "= " + l , null, null, null, null);
+        if (c  != null) {
+            c.moveToFirst();
+            String emailer = c.getString(2);
+            return emailer;
+        }
+        return  null;
+    }
+
+    public String gettel(long l) throws  SQLException{
+        String[] collumns = new String[]{KEYROWID, KEY_NAME, EMAIL, TEL, DEPARTMANET, PASSWORDO};
+        Cursor c = OurDatabase.query(TABLENAME, collumns, KEY_NAME + "= " + l , null, null, null, null);
+        if (c  != null) {
+            c.moveToFirst();
+            String teller = c.getString(3);
+            return teller;
+        }
+        return  null;
+    }
+    public String getpassworda(long l)throws SQLException{
+        String[] collumns = new String[]{KEYROWID, KEY_NAME, EMAIL, TEL, DEPARTMANET, PASSWORDO};
+        Cursor c = OurDatabase.query(TABLENAME, collumns, KEY_NAME + "= " + l , null, null, null, null);
+        if (c  != null) {
+            c.moveToFirst();
+            String passw = c.getString(5);
+            return passw;
+        }
+        return  null;
+    }
+    public  String getdept(long l) throws SQLException{
+        String[] collumns = new String[]{KEYROWID, KEY_NAME, EMAIL, TEL, DEPARTMANET, PASSWORDO};
+        Cursor c = OurDatabase.query(TABLENAME, collumns, KEY_NAME + "= " + l , null, null, null, null);
+        if (c  != null) {
+            c.moveToFirst();
+            String depto = c.getString(4);
+            return depto;
+        }
+
+        return null;
+    }
+ public void updateEntery(long ll, String  name, String emailer,String  tell, String department,String  passworda) throws SQLException{
+     ContentValues cvUpdate = new ContentValues();
+     cvUpdate.put(KEY_NAME,name);
+     cvUpdate.put(EMAIL, emailer);
+     cvUpdate.put(TEL, tell);
+     cvUpdate.put(DEPARTMANET, department);
+     cvUpdate.put(PASSWORDO, passworda);
+
+
+ }
+    public  void delEntery(long ll){
+        OurDatabase.delete(DATABASENAME, KEY_NAME + "=" + ll, null);
+    }
+
+
+            public String producenames(String name) throws SQLException{
+                String[] collumns = new String[]{KEYROWID, KEY_NAME};
+                Cursor c = OurDatabase.query(TABLENAME, collumns, DEPARTMANET + "= music" , null, null, null, null);
+                String result = " ";
+
+                int rowe = c.getColumnIndex(KEYROWID);
+                int namee = c.getColumnIndex(KEY_NAME);
+
+                for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+                    result = c.getString(rowe) + "  " + c.getString(namee)  + "\n";
+                }
+                return result;
+            }
+    public String produceushers(String name) throws SQLException{
+        String[] collumns = new String[]{KEYROWID, KEY_NAME};
+        Cursor c = OurDatabase.query(TABLENAME, collumns, DEPARTMANET + "= ushering" , null, null, null, null);
+        String result = " ";
+
+        int rowe = c.getColumnIndex(KEYROWID);
+        int namee = c.getColumnIndex(KEY_NAME);
+
+        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+            result = c.getString(rowe) + "  " + c.getString(namee)  + "\n";
+        }
+        return result;
+
+    }
+
+    public String producevisitors(String name) throws SQLException{
+        String[] collumns = new String[]{KEYROWID, KEY_NAME};
+        Cursor c = OurDatabase.query(TABLENAME, collumns, DEPARTMANET + "= visitation" , null, null, null, null);
+        String result = " ";
+
+        int rowe = c.getColumnIndex(KEYROWID);
+        int namee = c.getColumnIndex(KEY_NAME);
+
+        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+            result = c.getString(rowe) + "  " + c.getString(namee)  + "\n";
+        }
+        return result;
+
+    }
+
+
+}
