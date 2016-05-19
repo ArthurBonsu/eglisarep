@@ -1,0 +1,32 @@
+package com.gmail.peeman34.eglisaofficial;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import  android.database.sqlite.SQLiteOpenHelper;
+import android.widget.TextView;
+
+import java.sql.SQLException;
+
+/**
+ * Created by pee on 1/7/2016.
+ */
+public class MEMBERSHIPVIEW extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+           setContentView(R.layout.membershipview);
+        TextView tv = new TextView(this);
+       ENTERIES enteries2 = new ENTERIES(this);
+        enteries2.open();
+        String data = null;
+        try {
+            data = enteries2.getData();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        enteries2.close();
+        tv.setText(data);
+    }
+}
