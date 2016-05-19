@@ -1,0 +1,34 @@
+package com.gmail.peeman34.eglisaofficial;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.TextView;
+
+import java.sql.SQLException;
+
+/**
+ * Created by pee on 2/3/2016.
+ */
+public class MUSIC_MEMBERS extends Activity {
+    public MUSIC_MEMBERS() {
+        super();
+    }
+            TextView musicalmembers = (TextView)findViewById(R.id.memberpane);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.musicmembers);
+          ENTERIES ent77 = new ENTERIES(this);
+          ent77.open();
+           String musicmembers = null;
+           String musicnames = null;
+        try {
+            musicmembers = ent77.producenames(musicnames);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+           musicalmembers.setText(musicmembers);
+
+
+    }
+}
