@@ -1,0 +1,97 @@
+package com.gmail.peeman34.eglisaofficial;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.DataSetObserver;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.AbsListView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+
+/**
+ * Created by pee on 2/5/2016.
+ */
+public class CHATAPP extends Activity implements  View.OnClickListener  {
+
+    private ChatArrayAdapter adp;
+    private ListView list;
+    private EditText chatText;
+    private Button send;
+    Intent in;
+    private  boolean side= false;
+
+    public CHATAPP() {
+        super();
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+            setContentView(R.layout.main);
+
+        Intent i =getIntent();
+
+           send = (Button)findViewById(R.id.btn);
+
+           list = (ListView)findViewById(R.id.chatlist);
+
+           adp = new ChatArrayAdapter(getApplicationContext(), R.layout.chat);
+
+               chatText = (EditText)findViewById(R.id.chat);
+
+               send.setOnClickListener(this);
+
+
+
+                // I have to fix the onKeyListener.............................................
+
+
+
+
+                        list.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+                   list.setAdapter(adp);
+                   adp.registerDataSetObserver(new
+
+                   DataSetObserver() {
+                       /**
+                        * This method is called when the entire data set has changed,
+                        * most likely through a call to {@link Cursor#requery()} on a {@link Cursor}.
+                        */
+                       @Override
+                       public void onChanged () {
+                           super.onChanged();
+                           list.setSelection(adp.getCount());
+                       }
+                   }
+
+                   );
+               }
+
+
+    private boolean sendChatMessage() {
+          adp.add(new ChatMessage(side, chatText.getText().toString()));
+               chatText.setText("");
+           side =!side;
+           return true;
+
+       }
+
+    /**
+     * Called when a view has been clicked.
+     *
+     * @param v The view that was clicked.
+     */
+    @Override
+    public void onClick(View v) {
+        switch (getTaskId()){
+            case R.id.chat:
+                sendChatMessage();
+    }
+
+    }}
