@@ -1,0 +1,36 @@
+package com.gmail.peeman34.eglisaofficial;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.TextView;
+
+import java.sql.SQLException;
+
+/**
+ * Created by pee on 2/3/2016.
+ */
+public class USHERINGMEMBERS extends Activity {
+    public USHERINGMEMBERS() {
+        super();
+    }
+     TextView ushermembers = (TextView)findViewById(R.id.ushermembers);
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+           setContentView(R.layout.visitationmembers);
+      ENTERIES ent66 = new ENTERIES(this);
+         String ushersnames = null;
+         String getushersname = null;
+
+        ent66.open();
+        try {
+            getushersname = ent66.produceushers(ushersnames);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+         ushermembers.setText(getushersname);
+    }
+
+}
