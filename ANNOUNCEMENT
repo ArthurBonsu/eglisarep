@@ -1,0 +1,20 @@
+package com.gmail.peeman34.eglisaofficial;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.TextView;
+
+/**
+ * Created by pee on 2/4/2016.
+ */
+public class ANNOUNCEMENT extends Activity{
+    public ANNOUNCEMENT() {
+        super();
+    }
+    TextView announcemntpane = (TextView)findViewById(R.id.announcement);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.announcement);
+    }
+}
