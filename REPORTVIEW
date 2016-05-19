@@ -1,0 +1,18 @@
+package com.gmail.peeman34.eglisaofficial;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+/**
+ * Created by pee on 2/3/2016.
+ */
+public class REPORTVIEW extends Activity{
+    public REPORTVIEW() {
+        super();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+         setContentView(R.layout.reportview);}
+}
