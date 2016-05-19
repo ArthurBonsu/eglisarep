@@ -1,0 +1,249 @@
+package com.gmail.peeman34.eglisaofficial;
+
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.TextView;
+
+/**
+ * Created by pee on 1/5/2016.
+ */
+public class MEMBERSHIP extends Activity implements View.OnClickListener{
+
+EditText naming = (EditText) findViewById(R.id.naming);
+    EditText passwording = (EditText) findViewById(R.id.passwording);
+    EditText emailing = (EditText) findViewById(R.id.emailing);
+    EditText numbering= (EditText)findViewById(R.id.numbering);
+    RadioButton music = (RadioButton)findViewById(R.id.musicing);
+    RadioButton visitation = (RadioButton)findViewById(R.id.visitation);
+    RadioButton ushering = (RadioButton)findViewById(R.id.ushering);
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.membership);
+        Button okaying = (Button)findViewById(R.id.okaying);
+        Button deleting = (Button)findViewById(R.id.deleteentery);
+        Button loginging = (Button)findViewById(R.id.loginging);
+         Button View = (Button) findViewById(R.id.actionrole);
+        Button  GetInfo = (Button)findViewById(R.id.GETINFO);
+        Button EDIT = (Button) findViewById(R.id.EDITENTERY);
+
+
+
+        okaying.setOnClickListener(this);
+            deleting.setOnClickListener(this);
+            loginging.setOnClickListener(this);
+               View.setOnClickListener(this);
+         GetInfo.setOnClickListener(this);
+          EDIT.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (getTaskId()){
+
+            case R.id.okaying:
+              try {
+
+
+                  String name = naming.getText().toString();
+                  String Passwording2 = passwording.getText().toString();
+                  String emailling = emailing.getText().toString();
+                  String telephoning = numbering.getText().toString();
+
+                  if (music.isEnabled()) {
+                      String musical = "music";
+                      ENTERIES entery1 = new ENTERIES(MEMBERSHIP.this);
+                      entery1.open();
+                      entery1.createEntery(name, emailling, telephoning, musical,Passwording2);
+                      entery1.close();
+                      Dialog dialog = new Dialog(this);
+                      dialog.setTitle("Heck Yea!!");
+                      TextView peeview = new TextView(this);
+                      peeview.setText("Success");
+                      setContentView(peeview);
+                      dialog.show();
+
+
+                  } else if (visitation.isEnabled()) {
+                      String vistational = "visitation";
+                      ENTERIES entery1 = new ENTERIES(MEMBERSHIP.this);
+                      entery1.open();
+                      entery1.createEntery(name, emailling, telephoning, vistational, Passwording2);
+                      entery1.close();
+                      Dialog dialog = new Dialog(this);
+                      dialog.setTitle("Heck Yea!!");
+                      TextView peeview = new TextView(this);
+                      peeview.setText("Success");
+                      setContentView(peeview);
+                      dialog.show();
+
+                  } else if (ushering.isEnabled()) {
+                      String usherman = "ushering";
+                      ENTERIES entery1 = new ENTERIES(MEMBERSHIP.this);
+                      entery1.open();
+                      entery1.createEntery(name, emailling, telephoning, usherman, Passwording2);
+                      entery1.close();
+
+                  Dialog dialog = new Dialog(this);
+                  dialog.setTitle("Heck Yea!!");
+                  TextView peeview = new TextView(this);
+                  peeview.setText("Success");
+                  setContentView(peeview);
+                      dialog.show();
+
+
+                  }
+              }
+              catch (Exception e){
+                 String error = e.toString();
+                  Dialog dd = new Dialog(this);
+                  dd.setTitle("Ooops!");
+                  TextView tv = new TextView(this);
+                  tv.setText(error);
+                  dd.setContentView(tv);
+                  dd.show();
+
+
+              };
+
+                break;
+
+            case R.id.deleteentery:
+                try {
+                    String nameII = naming.getText().toString();
+                    long lldel = Long.parseLong(nameII);
+                    ENTERIES edel = new ENTERIES(this);
+                    edel.open();
+                    edel.delEntery(lldel);
+                    edel.close();
+                }
+                 catch(Exception e){
+                     String error = e.toString();
+                     Dialog dd = new Dialog(this);
+                     dd.setTitle("Delete Failed!");
+                     TextView tv = new TextView(this);
+                     tv.setText(error);
+                     dd.setContentView(tv);
+                     dd.show();
+
+                 }
+                    break;
+                    case R.id.loginging:
+                        Intent login = null;
+                        try {
+                            login = new Intent(this, Class.forName("com.gmail.peeman34.eglisaofficial.LOGING_IN"));
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        startActivity(login);
+                        break;
+
+                    case R.id.actionrole:
+                        try {
+                            Intent viewance = new Intent(this, Class.forName("com.gmail.peeman34.eglisaofficial.MEMBERSHIPVIEW"));
+                            startActivity(viewance);
+                        }catch (Exception e){
+                            String error = e.toString();
+                            Dialog dd = new Dialog(this);
+                            dd.setTitle("View error!");
+                            TextView tv = new TextView(this);
+                            tv.setText(error);
+                            dd.setContentView(tv);
+                            dd.show();
+
+                        }
+                        break;
+                    case R.id.EDITENTERY:
+                        try{
+                        String name = naming.getText().toString();
+                        String passworda = passwording.getText().toString();
+                        String tell = numbering.getText().toString();
+                        String emailer = emailing.getText().toString();
+                        String musical = "music";
+                        String visitational = "visitation";
+                        String usherignal = "ushering";
+                        long ll = Long.parseLong(name);
+                        if (music.isEnabled()) {
+                            ENTERIES ex = new ENTERIES(this);
+                            ex.open();
+
+                            ex.updateEntery(ll, name, emailer, tell, musical, passworda);
+
+                            ex.close();
+                        } else if (visitation.isEnabled()) {
+                            ENTERIES ex = new ENTERIES(this);
+                            ex.open();
+
+                            ex.updateEntery(ll, name, emailer, tell, visitational, passworda);
+
+                            ex.close();
+
+                        } else if (ushering.isEnabled()) {
+                            ENTERIES ex = new ENTERIES(this);
+                            ex.open();
+
+                            ex.updateEntery(ll, name, emailer, tell, usherignal, passworda);
+
+                            ex.close();
+
+                        }
+                }catch (Exception e){
+
+                            String error = e.toString();
+                            Dialog dd = new Dialog(this);
+                            dd.setTitle("Update Failed!");
+                            TextView tv = new TextView(this);
+                            tv.setText(error);
+                            dd.setContentView(tv);
+                            dd.show();
+
+                }
+                break;
+
+            case R.id.GETINFO:
+                       try {
+                           String s = naming.getText().toString();
+                           long l = Long.parseLong(s);
+
+                           ENTERIES enteries3 = new ENTERIES(this);
+
+                           enteries3.open();
+                           String returnedname = enteries3.getName(l);
+                           String returnedemail = enteries3.getemailer(l);
+                           String returnpassworda = enteries3.getpassworda(l);
+                           String returnednumber = enteries3.gettel(l);
+                           String returneddepartment = enteries3.getdept(l);
+
+                           naming.setText(returnedname);
+                           emailing.setText(returnedemail);
+                           numbering.setText(returnednumber);
+                           passwording.setText(returnpassworda);
+
+                           enteries3.close();
+                       } catch (Exception e){
+                           String error = e.toString();
+                           Dialog dd = new Dialog(this);
+                           dd.setTitle("Failed to get Info!");
+                           TextView tv = new TextView(this);
+                           tv.setText(error);
+                           dd.setContentView(tv);
+                           dd.show();
+
+                       }
+                break;
+
+
+         }
+
+}
+
+
+
+}
