@@ -1,0 +1,19 @@
+package com.gmail.peeman34.eglisaofficial;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+/**
+ * Created by pee on 1/30/2016.
+ */
+public class VIEWLEADERS extends Activity  {
+    public VIEWLEADERS() {
+        super();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+         setContentView(R.layout.visitationreport);
+    }
+}
