@@ -1,0 +1,29 @@
+package com.gmail.peeman34.eglisaofficial;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.*;
+/**
+ * Created by pee on 1/5/2016.
+ */
+
+
+public class ABOUTVIEW extends Activity {
+  TextView AboutText = (TextView) findViewById(R.id.AboutText);
+    TextView AboutStory = (TextView) findViewById(R.id.AboutStory);
+
+    public ABOUTVIEW() {
+        super();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.aboutview);
+
+         AboutText.setText(R.string.about_text);
+         AboutStory.setText(R.string.about_story);
+         
+    }
+
+}
