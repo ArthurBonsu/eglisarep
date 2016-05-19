@@ -1,0 +1,119 @@
+package com.gmail.peeman34.eglisaofficial;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+
+/**
+ * Created by pee on 1/5/2016.
+ */
+
+public class LOGING_IN extends AppCompatActivity implements View.OnClickListener{
+
+    public LOGING_IN() {
+        super();
+    }
+     Button LOGIN = (Button) findViewById(R.id.LOGINN);
+    Button  BACK = (Button)findViewById(R.id.cancellogin);
+    Button REGISTER= (Button)findViewById(R.id.register2);
+    EditText LOGNAME = (EditText) findViewById(R.id.NAMER);
+    EditText LOGPASS = (EditText) findViewById(R.id.PASSTEXT);
+     CheckBox RememberMe = (CheckBox)findViewById(R.id.Remember);
+    private SharedPreferences SharedPrefs;
+    private  SharedPreferences.Editor loginEditor;
+    private  String email, password;
+    private  static String USERNAME_KEY = "username";
+    private  static  String PASSWORD_KEY ="password";
+    private  final static String SAVED_KEY ="saved";
+    private boolean isSaved =false;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.login_in);
+        LOGIN.setOnClickListener(this);
+        BACK.setOnClickListener(this);
+        REGISTER.setOnClickListener(this);
+        LOGPASS.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        init();
+
+        isSaved = SharedPrefs.getBoolean(SAVED_KEY, false);
+        if (isSaved) {
+            fillData();
+        }
+    }
+
+    private void fillData() {
+           String userName = SharedPrefs.getString(USERNAME_KEY, "");
+           String password = SharedPrefs.getString(PASSWORD_KEY, "");
+          LOGPASS.setText(password);
+           LOGNAME.setText(userName);
+            RememberMe.setChecked(isSaved);}
+
+    private  boolean checkSavedOption(String userName, String password )
+    {if (RememberMe.isChecked()){
+        saveData(userName, password);
+        isSaved = true;
+    }
+        else{
+        loginEditor.clear();
+        loginEditor.commit();
+        isSaved= false;  }
+       return  isSaved;
+    }
+       private  void saveData(String userName, String password){
+           loginEditor.putString(USERNAME_KEY, userName);
+           loginEditor.putString(PASSWORD_KEY, password);
+           loginEditor.putString(SAVED_KEY, String.valueOf(isSaved));
+             loginEditor.commit();
+       }
+    private void init() {
+     SharedPreferences SharedPrefs = getSharedPreferences("SharedPrefs", MODE_PRIVATE);
+      SharedPreferences.Editor loginEditor = SharedPrefs.edit();
+
+       }
+
+    @Override
+    public void onClick(View v) {
+        Animation animo = AnimationUtils.loadAnimation(LOGING_IN.this, R.anim.animo);
+          LOGIN.startAnimation(animo);
+
+        switch (getTaskId()){
+            case R.id.LOGINN:
+                try {
+                    String userName =  LOGNAME.getText().toString();
+                    String password = LOGPASS.getText().toString();
+                    saveData(userName, password);
+
+                    Intent welcoming =  new Intent(this, Class.forName("com.gmail.peeman34.eglisaofficial.WELCOMEPAGE"));
+                     startActivity(welcoming);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+
+                break;
+
+            case R.id.register2:
+                Intent register = null;
+                try {
+                    register = new Intent(this, Class.forName("com.gmail.peeman34.eglisaofficial.MEMBERSHIP"));
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                startActivity(register);
+             break;
+            case  R.id.cancellogin:
+                break;
+        }
+    }
+}
