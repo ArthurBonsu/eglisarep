@@ -1,0 +1,26 @@
+package com.gmail.peeman34.eglisaofficial;
+
+import android.provider.Settings;
+
+import org.json.JSONObject;
+import java.io.InputStream;
+import java.util.List;
+
+
+
+/**
+ * Created by pee on 4/15/2016.
+ */
+public class CONNECTION {
+    static InputStream IS = null;
+    static JSONObject JB = null;
+    static String Json = "null";
+
+    // This is a Constructor
+    public CONNECTION() {
+    }
+
+    public void makeHttpRequest(String url, String method, List<Settings.NameValueTable> params) {
+
+    }
+}
